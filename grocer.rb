@@ -89,7 +89,6 @@ def checkout(cart, coupons)
   	total
 
 #   When checking out, follow these steps in order:
-
 # Apply coupon discounts if the proper number of items are present.
 # Apply 20% discount if items are on clearance.
 # If, after applying the coupon discounts and the clearance discounts, the cart's total is over $100, then apply a 10% discount.
