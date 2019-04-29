@@ -16,14 +16,11 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-
 # 	cart = {
 #   "AVOCADO" => {:price => 3.0, :clearance => true, :count => 3},
 #   "KALE"    => {:price => 3.0, :clearance => false, :count => 1}
 # 	}
-	
 # 	coupon = {:item => "AVOCADO", :num => 2, :cost => 5.0} 
-
 	new_hash = {}
 	cart.each do |food_name, att_hash|
 		coupons.each do |coupon_hash|
@@ -41,7 +38,6 @@ def apply_coupons(cart, coupons)
 					# creates new food_name w/coupon to show bundled price in basket, price = coupon cost, clearance = true, count = 1
 				end
 			end
-
 		end
 		new_hash[food_name] = att_hash
 		# add the attributes cart hash to the food_name hash in new_hash for each food_name
@@ -67,7 +63,6 @@ def apply_clearance(cart)
  end
 new_hash
 # returns a new cart, all items the same except clearence == true subtracted 20%
-
 end
 
 def checkout(cart, coupons)
@@ -81,11 +76,9 @@ def checkout(cart, coupons)
     	total += (item_hash[:count] * item_hash[:price])
   	end
   	# adds the value of all items (after clearance applied) to the total
-
   	if total > 100
     	total = total * 9 / 10
   	end
-
   	total
 
 #   When checking out, follow these steps in order:
