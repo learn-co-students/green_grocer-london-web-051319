@@ -22,7 +22,7 @@ def apply_coupons(cart, coupons)
 #   "KALE"    => {:price => 3.0, :clearance => false, :count => 1}
 # 	}
 	
-# 	coupon = {:item => "AVOCADO", :num => 2, :cost => 5.0}
+# 	coupon = {:item => "AVOCADO", :num => 2, :cost => 5.0} 
 
 	new_hash = {}
 	cart.each do |food_name, att_hash|
@@ -75,6 +75,7 @@ def checkout(cart, coupons)
 	consolidated_cart = consolidate_cart(cart) #colsolidate_cart method called
 	applied_coupons = apply_coupons(consolidated_cart, coupons) #apply_method method called
 	applied_clearance = apply_clearance(applied_coupons) #apply_clearance method called
+	# all the above return hashes
   	clearance_total = 0
   	applied_clearance.each do |item, item_hash|
     	clearance_total += (item_hash[:count] * item_hash[:price])
