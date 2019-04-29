@@ -76,17 +76,17 @@ def checkout(cart, coupons)
 	applied_coupons = apply_coupons(consolidated_cart, coupons) #apply_method method called
 	applied_clearance = apply_clearance(applied_coupons) #apply_clearance method called
 	# all the above return hashes
-  	clearance_total = 0
+  	total = 0
   	applied_clearance.each do |item, item_hash|
-    	clearance_total += (item_hash[:count] * item_hash[:price])
+    	total += (item_hash[:count] * item_hash[:price])
   	end
-  	# adds the value of all clearance items to the total
+  	# adds the value of all items (after clearance applied) to the total
 
-  	if clearance_total > 100
-    	clearance_total = clearance_total * 9 / 10
+  	if total > 100
+    	total = total * 9 / 10
   	end
 
-  	clearance_total
+  	total
 
 #   When checking out, follow these steps in order:
 
