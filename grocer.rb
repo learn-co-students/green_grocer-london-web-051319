@@ -15,18 +15,20 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-  new_cart = {}
-  cart.each do |item, info|
-    if coupons[0][:item] == item && coupons[0][:num] <= info[:count]
-      info[:count] -= coupons[0][:num]
-      binding.pry
-      if info[:count] > 0 
+  new_cart = {} # empty cart I'll push data to
+  cart.each do |item, info| # iterate over cart
+    if coupons[0][:item] == item && coupons[0][:num] <= info[:count] # is there a coupon and do we have enough items to qualify?
+      info[:count] -= coupons[0][:num] # if so, remove the amount of items covered by the coupon from the cart
 
-      end
-    else
-      new_cart = new_cart[item] = info
+    # else
     end
+    if info[:count] > 0 
+      new_cart = new_cart[item] = info
+      # new_cart = {"banana" => {:count => 2}}
+    end
+    # still iteration one "AVOCADO"
   end
+  binding.pry
 end
 
 def apply_clearance(cart)
@@ -39,6 +41,8 @@ end
 
 
 # Cart == {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
+
+
 # Coupons == [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
 
 # new_cart = {}
