@@ -1,9 +1,10 @@
 require "pry"
 
 def consolidate_cart(cart)
-  obj = cart.each_with_object({}) do |item, object|
-    item.each do |food, info|
-      if object[food]
+  obj = cart.each_with_object({}) do |item, object| # item == cart[0], object is the empty hash in the () which is obj = {}
+    item.each do |food, info| # food == "AVOCADO". info == {:price => 3.00, :clearance => true}
+      # info[:count] = 1 # inserts :count => 1 onto the end of the info object
+      if object[food] # effectively says, if objec[food] exists?, then do the action below
         info[:count] += 1
       else 
         object[food] = info
@@ -18,10 +19,11 @@ def apply_coupons(cart, coupons)
   new_cart = {}
   cart.each do |item, info|
     if coupons[0][:item] == item && coupons[0][:num] <= info[:count]
+      # updated_count = info[:count] - coupons[0][:num]
       info[:count] -= coupons[0][:num]
-      binding.pry
       if info[:count] > 0 
-
+        binding.pry
+        new_cart[item] = 
       end
     else
       new_cart = new_cart[item] = info
