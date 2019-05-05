@@ -15,21 +15,32 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-  new_cart = {} # empty cart I'll push data to
-  cart.each do |item, info| # iterate over cart
-    if coupons[0][:item] == item && coupons[0][:num] <= info[:count] # is there a coupon and do we have enough items to qualify?
-      info[:count] -= coupons[0][:num] # if so, remove the amount of items covered by the coupon from the cart
-
-    # else
-    end
-    if info[:count] > 0 
-      new_cart = new_cart[item] = info
-      # new_cart = {"banana" => {:count => 2}}
-    end
-    # still iteration one "AVOCADO"
+  new_cart = {}
+  coupon_items = {}
+  if coupons == []
+    return cart
   end
-  binding.pry
+  cart.each do |item, info| 
+    coupons.each do |object| 
+
+      if object[:item] != item || object[:item] == item && object[:num] > info[:count]
+        new_cart[item] = info # this is a short version of the destructive add for hashes inside an iterative loop.
+      elsif object[:item] == item && object[:num] <= info[:count]
+        if coupon_items.include?("#{item} W/COUPON")
+          coupon_items["#{item} W/COUPON"][:count] += 1
+        else
+          coupon_items["#{item} W/COUPON"] = {:price => object[:cost], :clearance => info[:clearance], :count => 1} # this is a full version of the destructive add
+        end
+        info[:count] -= object[:num]
+        new_cart[item] = info
+      end
+    end
+  end 
+  new_cart.merge!(coupon_items) # use this to add key value pairs outside of an iteration
+  # binding.pry
 end
+
+
 
 def apply_clearance(cart)
   # code here
@@ -38,24 +49,3 @@ end
 def checkout(cart, coupons)
   # code here
 end
-
-
-# Cart == {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}
-
-
-# Coupons == [{:item=>"AVOCADO", :num=>2, :cost=>5.0}]
-
-# new_cart = {}
-# cart.each do |food, info|
-#   coupons.each do |details| # details == {:item => "AVOCADO", :num => 2, :cost => 5.00}
-#     coupons[details].each do |k, v|
-#     if coupons[:item] == food && info[:count] > coupons[:num]
-#   # first removes the coupon num of items from cart
-#   # info[:count] -= coupons[:num]
-#   # second creates a new line for the coupon groups
-#   # new_cart[food] = info
-#     end
-#   end
-# end
-# end
-# obj
